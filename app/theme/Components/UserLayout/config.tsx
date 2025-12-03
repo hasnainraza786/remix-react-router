@@ -1,50 +1,50 @@
-import { routes } from "~/router/routes";
+import messages from './messages';
+import type { NavItemConfig } from './types';
 
-import type { NavItemConfig } from "./types";
-import messages from "./messages";
-import FormattedMessage from "~/context/FormattedMessage";
+import FormattedMessage from '~/context/FormattedMessage';
+import { routes } from '~/router/routes';
 
 export const navItems: NavItemConfig[] = [
   {
-    key: "dashboard",
+    key: 'dashboard',
     title: <FormattedMessage {...messages.dashboard} />,
     href: routes.dashboard,
-    icon: "dashboard",
+    icon: 'dashboard',
   },
   {
-    key: "fileBaseRouting",
+    key: 'fileBaseRouting',
     title: <FormattedMessage {...messages.fileBaseRouting} />,
     href: routes.fileBaseRouting,
-    icon: "fileBaseRouting",
+    icon: 'fileBaseRouting',
   },
   {
-    key: "layoutStructure",
+    key: 'layoutStructure',
     title: <FormattedMessage {...messages.layoutStructure} />,
     href: routes.layoutStructure,
-    icon: "layoutStructure",
+    icon: 'layoutStructure',
   },
   {
-    key: "middlewareStructure",
+    key: 'middlewareStructure',
     title: <FormattedMessage {...messages.middlewareStructure} />,
     href: routes.middlewareStructure,
-    icon: "middlewareStructure",
+    icon: 'middlewareStructure',
   },
   {
-    key: "renderingStructure",
+    key: 'renderingStructure',
     title: <FormattedMessage {...messages.renderingStructure} />,
     href: routes.renderingStructure,
-    icon: "renderingStructure",
+    icon: 'renderingStructure',
   },
   {
-    key: "user",
+    key: 'user',
     title: <FormattedMessage {...messages.user} />,
     href: routes.user.listing,
-    icon: "user",
+    icon: 'user',
   },
   {
-    key: "blogs",
+    key: 'blogs',
     title: <FormattedMessage {...messages.blogs} />,
     href: routes.blogs.listing,
-    icon: "blogs",
+    icon: 'blogs',
   },
 ];

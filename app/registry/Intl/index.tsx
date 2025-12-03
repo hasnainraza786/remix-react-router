@@ -1,11 +1,11 @@
-import { useState, useEffect } from "react";
+import { useState, useEffect } from 'react';
 
-import merge from "lodash/merge";
-import { RawIntlProvider, createIntl, createIntlCache } from "react-intl";
+import merge from 'lodash/merge';
+import { RawIntlProvider, createIntl, createIntlCache } from 'react-intl';
 
-import messages from "~/translations/en.json";
-import urMessages from "~/translations/ur.json";
-import { useLocale } from "~/context/LocaleContext";
+import { useLocale } from '~/context/LocaleContext';
+import messages from '~/translations/en.json';
+import urMessages from '~/translations/ur.json';
 
 const cache = createIntlCache();
 
@@ -25,34 +25,24 @@ export default function IntlRegistry({
   const { locale } = useLocale();
 
   const [intl, setIntl] = useState(() => {
-    const messagesForLocale =
-      availableLocales[locale as keyof typeof availableLocales] ||
-      availableLocales.en;
+    const messagesForLocale = availableLocales[locale as keyof typeof availableLocales] || availableLocales.en;
     return createIntl(
       {
         locale,
-        messages: merge(
-          messagesForLocale,
-          (customMessages ? customMessages?.[locale] : {}) || {}
-        ),
+        messages: merge(messagesForLocale, (customMessages ? customMessages?.[locale] : {}) || {}),
       },
-      cache
+      cache,
     );
   });
 
   useEffect(() => {
-    const messagesForLocale =
-      availableLocales[locale as keyof typeof availableLocales] ||
-      availableLocales.en;
+    const messagesForLocale = availableLocales[locale as keyof typeof availableLocales] || availableLocales.en;
     const newIntl = createIntl(
       {
         locale,
-        messages: merge(
-          messagesForLocale,
-          (customMessages ? customMessages?.[locale] : {}) || {}
-        ),
+        messages: merge(messagesForLocale, (customMessages ? customMessages?.[locale] : {}) || {}),
       },
-      cache
+      cache,
     );
     setIntl(newIntl);
   }, [locale, customMessages]);

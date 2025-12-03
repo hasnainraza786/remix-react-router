@@ -7,22 +7,19 @@
  * @returns {Object} An object containing the filters and a function to update them.
  */
 
-import { useCallback, useMemo } from "react";
+import { useCallback, useMemo } from 'react';
 
-import pkg from "lodash";
-import qs from "query-string";
+import pkg from 'lodash';
+import qs from 'query-string';
 
-import type {
-  GridFilterModel,
-  GridPaginationModel,
-  GridSortModel,
-} from "@mui/x-data-grid";
-import { useQueryParams } from "~/hooks/useQueryParams";
+import type { GridFilterModel, GridPaginationModel, GridSortModel } from '@mui/x-data-grid';
+
+import { useQueryParams } from '~/hooks/useQueryParams';
 
 interface FilterQuery {
   page: number;
   pageSize: number;
-  sortOrder?: "asc" | "desc";
+  sortOrder?: 'asc' | 'desc';
   includeInActive?: boolean;
   [key: string]: string | number | boolean | undefined;
 }
@@ -35,9 +32,7 @@ const defaultPaginationModel = {
 interface ListingFilterHookReturn<T> {
   filters: FilterQuery & T;
   resetFilters: () => void;
-  setFilter: (
-    args: Record<string, string | number | boolean | undefined>
-  ) => void;
+  setFilter: (args: Record<string, string | number | boolean | undefined>) => void;
   handleSortModelChange: (model: GridSortModel) => void;
   handleFilterModelChange: (model: GridFilterModel) => void;
   handlePaginationModelChange: (model: GridPaginationModel) => void;
@@ -45,8 +40,7 @@ interface ListingFilterHookReturn<T> {
 
 export const useListingFilters = <T>(): ListingFilterHookReturn<T> => {
   const { debounce } = pkg;
-  const { setParam, getAllParams, deleteParams, setNewParams } =
-    useQueryParams();
+  const { setParam, getAllParams, deleteParams, setNewParams } = useQueryParams();
 
   const filters = useMemo<FilterQuery & T>(() => {
     const parsedFilters = getAllParams();
@@ -54,9 +48,7 @@ export const useListingFilters = <T>(): ListingFilterHookReturn<T> => {
     return {
       ...(parsedFilters as FilterQuery & T),
       page: Number(parsedFilters.page ?? defaultPaginationModel.page),
-      pageSize: Number(
-        parsedFilters.pageSize ?? defaultPaginationModel.pageSize
-      ),
+      pageSize: Number(parsedFilters.pageSize ?? defaultPaginationModel.pageSize),
     };
   }, [getAllParams]);
 
@@ -65,14 +57,15 @@ export const useListingFilters = <T>(): ListingFilterHookReturn<T> => {
       const newFilters = { ...filters, ...args };
 
       // Remove undefined values if needed
-      const filteredFilters = Object.entries(newFilters).reduce<
-        Record<string, string | number | boolean | undefined>
-      >((acc, [key, value]) => {
-        if (value !== undefined) {
-          acc[key] = value;
-        }
-        return acc;
-      }, {});
+      const filteredFilters = Object.entries(newFilters).reduce<Record<string, string | number | boolean | undefined>>(
+        (acc, [key, value]) => {
+          if (value !== undefined) {
+            acc[key] = value;
+          }
+          return acc;
+        },
+        {},
+      );
 
       setParam({
         scroll: false,
@@ -80,7 +73,7 @@ export const useListingFilters = <T>(): ListingFilterHookReturn<T> => {
         allParams: qs.stringify(filteredFilters),
       });
     },
-    [filters, setParam]
+    [filters, setParam],
   );
 
   const handleSortModelChange = useCallback(
@@ -93,11 +86,11 @@ export const useListingFilters = <T>(): ListingFilterHookReturn<T> => {
         return;
       }
       setFilter({
-        sortOrder: model[0].sort || "asc",
-        sortBy: model[0].field || "id",
+        sortOrder: model[0].sort || 'asc',
+        sortBy: model[0].field || 'id',
       });
     },
-    [setFilter]
+    [setFilter],
   );
 
   const resetFilters = useCallback(() => {
@@ -115,28 +108,25 @@ export const useListingFilters = <T>(): ListingFilterHookReturn<T> => {
         pageSize: model.pageSize,
       });
     },
-    [setFilter]
+    [setFilter],
   );
 
   // eslint-disable-next-line react-hooks/exhaustive-deps
   const debouncedSetFilter = useCallback(
-    debounce(
-      (filterObj: Record<string, string | undefined>, hasValue: boolean) => {
-        setFilter({
-          ...filterObj,
-          page: hasValue ? 0 : filters.page,
-        });
-      },
-      500
-    ),
-    [filters, setFilter]
+    debounce((filterObj: Record<string, string | undefined>, hasValue: boolean) => {
+      setFilter({
+        ...filterObj,
+        page: hasValue ? 0 : filters.page,
+      });
+    }, 500),
+    [filters, setFilter],
   );
   // eslint-disable-next-line react-hooks/exhaustive-deps
   const debouncedResetFilter = useCallback(
     debounce(() => {
       resetFilters();
     }, 500),
-    [filters, setFilter]
+    [filters, setFilter],
   );
 
   const handleFilterModelChange = useCallback(
@@ -148,23 +138,18 @@ export const useListingFilters = <T>(): ListingFilterHookReturn<T> => {
       }
 
       // Build filter object (keep empty values instead of skipping them)
-      const filterObj = model.items.reduce<Record<string, string | undefined>>(
-        (acc, item) => {
-          acc[item.field] = item?.value;
-          return acc;
-        },
-        {}
-      );
+      const filterObj = model.items.reduce<Record<string, string | undefined>>((acc, item) => {
+        acc[item.field] = item?.value;
+        return acc;
+      }, {});
 
       // Check if there is at least one "real" value
-      const hasValue = Object.values(filterObj).some(
-        (v) => v !== undefined && v !== null && v !== ""
-      );
+      const hasValue = Object.values(filterObj).some((v) => v !== undefined && v !== null && v !== '');
 
       // Apply filters and reset to first page
       debouncedSetFilter(filterObj, hasValue);
     },
-    [debouncedResetFilter, debouncedSetFilter]
+    [debouncedResetFilter, debouncedSetFilter],
   );
 
   return {

@@ -1,9 +1,11 @@
-import React, { type PropsWithChildren } from "react";
-import { useNavigate } from "react-router";
-import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
-import { ReactQueryDevtools } from "@tanstack/react-query-devtools";
-import { routes } from "~/router/routes";
-import { useAuthContext } from "~/context/AuthContext";
+import React, { type PropsWithChildren } from 'react';
+
+import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
+import { ReactQueryDevtools } from '@tanstack/react-query-devtools';
+import { useNavigate } from 'react-router';
+
+import { useAuthContext } from '~/context/AuthContext';
+import { routes } from '~/router/routes';
 
 // This wrapper component is necessary to access the useNavigate hook
 // from within the QueryClient's configuration.
@@ -16,7 +18,7 @@ function QueryClientWithAuth({ children }: PropsWithChildren) {
       new QueryClient({
         defaultOptions: {
           queries: {
-            networkMode: "always",
+            networkMode: 'always',
             refetchOnReconnect: true,
 
             throwOnError: (error) => {
@@ -33,7 +35,7 @@ function QueryClientWithAuth({ children }: PropsWithChildren) {
             },
           },
           mutations: {
-            networkMode: "always",
+            networkMode: 'always',
             throwOnError: (error) => {
               // Check for 401 Unauthorized status
               //@ts-expect-error Type guarding is complex here; check status code
@@ -48,7 +50,7 @@ function QueryClientWithAuth({ children }: PropsWithChildren) {
             },
           },
         },
-      })
+      }),
   );
 
   return (

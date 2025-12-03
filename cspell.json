@@ -1,0 +1,17 @@
+{
+  "version": "0.2",
+  "ignorePaths": [
+    "tsconfig.tsbuildinfo",
+    "tsconfig.json",
+    "src/translations/ur.json",
+    "api/service/api.config.json",
+    "public",
+    "README.md",
+    "scripts"
+  ],
+  "dictionaryDefinitions": [],
+  "dictionaries": [],
+  "words": [],
+  "ignoreWords": [],
+  "import": []
+}

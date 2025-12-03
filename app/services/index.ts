@@ -1,8 +1,8 @@
-import qs from "query-string";
+import qs from 'query-string';
 
-const API_URL = "https://dummyjson.com";
+const API_URL = 'https://dummyjson.com';
 const defaultHeaders: Record<string, string> = {
-  "Content-Type": "application/json",
+  'Content-Type': 'application/json',
 };
 
 export function setAuthenticationHeader(token: string): void {
@@ -19,15 +19,19 @@ export function removeAuthenticationHeader(): void {
 
 interface RequestArgs {
   url: string;
-  method?: "GET" | "POST" | "PATCH" | "DELETE";
+  method?: 'GET' | 'POST' | 'PATCH' | 'DELETE';
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
   data?: any;
+
   headers?: Record<string, string>;
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
   queryParams?: Record<string, any>;
   noAuth?: boolean;
 }
 
+// eslint-disable-next-line @typescript-eslint/no-explicit-any
 async function service<T = any>(args: RequestArgs): Promise<T> {
-  const { url, method = "GET", data, headers = {}, queryParams, noAuth } = args;
+  const { url, method = 'GET', data, headers = {}, queryParams, noAuth } = args;
 
   const finalHeaders = { ...defaultHeaders, ...headers };
   if (noAuth) delete finalHeaders.Authorization;

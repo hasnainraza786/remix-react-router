@@ -1,4 +1,5 @@
 import { Box, Divider, Paper, Typography } from "@mui/material";
+
 import RouteCard from "../components/RouteCard";
 
 export default function FileBasedRoutingPage() {

@@ -1,3 +1,5 @@
+import { useLoaderData, useNavigate } from 'react-router';
+
 import {
   Avatar,
   Box,
@@ -9,21 +11,17 @@ import {
   Grid,
   Stack,
   Typography,
-} from "@mui/material";
-import { useLoaderData, useNavigate } from "react-router";
+} from '@mui/material';
 
 // 🔹 Component
 export default function UserDetail() {
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
   const user = useLoaderData() as any;
   const navigate = useNavigate();
 
   if (!user) {
     return (
-      <Stack
-        alignItems="center"
-        justifyContent="center"
-        sx={{ height: "80vh" }}
-      >
+      <Stack alignItems="center" justifyContent="center" sx={{ height: '80vh' }}>
         <CircularProgress />
       </Stack>
     );
@@ -33,11 +31,7 @@ export default function UserDetail() {
     <Card sx={{ borderRadius: 3, boxShadow: 3 }}>
       <CardContent>
         <Stack direction="row" spacing={3} alignItems="center">
-          <Avatar
-            src={user.image}
-            alt={user.firstName}
-            sx={{ width: 100, height: 100, border: "2px solid #ddd" }}
-          />
+          <Avatar src={user.image} alt={user.firstName} sx={{ width: 100, height: 100, border: '2px solid #ddd' }} />
           <Box>
             <Typography variant="h6">
               {user.firstName} {user.lastName}
@@ -74,8 +68,7 @@ export default function UserDetail() {
           Address
         </Typography>
         <Typography variant="body2" color="text.secondary">
-          {user.address.address}, {user.address.city}, {user.address.state},{" "}
-          {user.address.country}
+          {user.address.address}, {user.address.city}, {user.address.state}, {user.address.country}
         </Typography>
 
         <Divider sx={{ my: 3 }} />
@@ -102,7 +95,7 @@ function Info({ label, value }: { label: string; value: string | number }) {
         {label}:
       </Typography>
       <Typography variant="body2" color="text.secondary">
-        {value || "-"}
+        {value || '-'}
       </Typography>
     </Stack>
   );
