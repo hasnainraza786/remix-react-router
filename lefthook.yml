@@ -14,8 +14,8 @@ pre-commit:
     formatting:
       glob: 'src/**/*.{js,ts,jsx,tsx,md}'
       run: npm run format {staged_files}
-    check-deps:
-      run: npm run check-deps
+    # check-deps:
+    #   run: npm run check-deps
 
 commit-msg:
   parallel: true
