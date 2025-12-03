@@ -1,17 +1,18 @@
-import * as React from "react";
+import * as React from 'react';
 
-import Box from "@mui/material/Box";
-import Divider from "@mui/material/Divider";
+import { Link, useLocation } from 'react-router';
 
-import { colorSchemes } from "~/theme/color-schemes";
+import Box from '@mui/material/Box';
+import Divider from '@mui/material/Divider';
 
-import { routes } from "~/router/routes";
+import { Logo } from '../../Logo';
+import { navItems } from '../config';
+import { NavList } from '../NavItems';
 
-import { Link, useLocation } from "react-router";
-import { Logo } from "../../Logo";
-import { navItems } from "../config";
-import { NavList } from "../NavItems";
-import { SideNav, SideNavContainer } from "./Styled";
+import { SideNav, SideNavContainer } from './Styled';
+
+import { routes } from '~/router/routes';
+import { colorSchemes } from '~/theme/color-schemes';
 
 function SideNavBar(): React.JSX.Element {
   const pathname = useLocation().pathname;
@@ -22,11 +23,7 @@ function SideNavBar(): React.JSX.Element {
   return (
     <SideNavContainer>
       <SideNav>
-        <Box
-          component={Link}
-          to={routes.home}
-          sx={{ display: "flex", justifyContent: "center", p: "24px" }}
-        >
+        <Box component={Link} to={routes.home} sx={{ display: 'flex', justifyContent: 'center', p: '24px' }}>
           <Logo />
         </Box>
         <Divider sx={{ borderColor: palette.stroke }} />

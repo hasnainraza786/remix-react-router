@@ -1,7 +1,8 @@
-import { memo } from "react";
+import { memo } from 'react';
 
-import Lottie from "lottie-react";
-import animations from "~/assets/animations";
+import Lottie from 'lottie-react';
+
+import animations from '~/assets/animations';
 
 type LottieViewProps = {
   source: keyof typeof animations;
@@ -15,13 +16,7 @@ function LottieView(props: LottieViewProps) {
   const lottieAnimation = animations[source];
 
   if (lottieAnimation) {
-    return (
-      <Lottie
-        animationData={lottieAnimation}
-        style={{ width, height }}
-        {...otherProps}
-      />
-    );
+    return <Lottie animationData={lottieAnimation} style={{ width, height }} {...otherProps} />;
   }
 
   return null;

@@ -1,15 +1,8 @@
-import { Paper, Stack, Typography } from "@mui/material";
-import { colorSchemes } from "~/theme/color-schemes";
+import { Paper, Stack, Typography } from '@mui/material';
 
-function RouteCard({
-  file,
-  path,
-  description,
-}: {
-  file: string;
-  path: string;
-  description: string;
-}) {
+import { colorSchemes } from '~/theme/color-schemes';
+
+function RouteCard({ file, path, description }: { file: string; path: string; description: string }) {
   const {
     light: { palette },
   } = colorSchemes;
@@ -27,7 +20,7 @@ function RouteCard({
         <Typography variant="h6" fontWeight={600}>
           {path}
         </Typography>
-        <Typography variant="body2" sx={{ color: "text.secondary" }}>
+        <Typography variant="body2" sx={{ color: 'text.secondary' }}>
           File: <code>{file}</code>
         </Typography>
         <Typography variant="body2">{description}</Typography>

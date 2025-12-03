@@ -1,10 +1,10 @@
-import { createTheme } from "@mui/material/styles";
+import { createTheme } from '@mui/material/styles';
+import type { Theme } from '@mui/material/styles';
 
-import { colorSchemes } from "./color-schemes";
-import { components } from "./Components/components";
-import { shadows } from "./shadows";
-import { typography } from "./typography";
-import type { Theme } from "@mui/material/styles";
+import { colorSchemes } from './color-schemes';
+import { components } from './Components/components';
+import { shadows } from './shadows';
+import { typography } from './typography';
 
 function customCreateTheme(): Theme {
   const theme = createTheme({
@@ -12,9 +12,9 @@ function customCreateTheme(): Theme {
     colorSchemes,
     components,
     cssVariables: {
-      colorSchemeSelector: "class",
+      colorSchemeSelector: 'class',
     },
-    direction: "ltr",
+    direction: 'ltr',
     shadows,
     shape: { borderRadius: 8 },
     typography,

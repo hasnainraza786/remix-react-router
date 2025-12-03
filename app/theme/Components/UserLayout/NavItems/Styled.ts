@@ -1,23 +1,23 @@
-import { styled } from "@mui/material/styles";
-import Box, { type BoxProps } from "@mui/material/Box";
-import Typography, { type TypographyProps } from "@mui/material/Typography";
+import Box, { type BoxProps } from '@mui/material/Box';
+import { styled } from '@mui/material/styles';
+import Typography, { type TypographyProps } from '@mui/material/Typography';
 
 export const NavContainer = styled(Box)({
-  padding: "12px",
-  overflow: "auto",
-  "&::-webkit-scrollbar": {
-    width: "6px",
-    height: "6px",
+  padding: '12px',
+  overflow: 'auto',
+  '&::-webkit-scrollbar': {
+    width: '6px',
+    height: '6px',
   },
-  "&::-webkit-scrollbar-thumb": {
-    backgroundColor: "#E0E1E6",
-    borderRadius: "8px",
+  '&::-webkit-scrollbar-thumb': {
+    backgroundColor: '#E0E1E6',
+    borderRadius: '8px',
   },
-  "&::-webkit-scrollbar-thumb:hover": {
-    backgroundColor: "#CDCED7",
+  '&::-webkit-scrollbar-thumb:hover': {
+    backgroundColor: '#CDCED7',
   },
-  "&::-webkit-scrollbar-track": {
-    display: "none",
+  '&::-webkit-scrollbar-track': {
+    display: 'none',
   },
 });
 
@@ -28,22 +28,22 @@ interface NavItemBoxProps extends BoxProps {
 }
 
 export const NavItemBox = styled(Box, {
-  shouldForwardProp: (prop) => prop !== "active" && prop !== "disabled",
+  shouldForwardProp: (prop) => prop !== 'active' && prop !== 'disabled',
 })<NavItemBoxProps>(({ theme, active, disabled }) => ({
-  display: "flex",
-  alignItems: "center",
+  display: 'flex',
+  alignItems: 'center',
   gap: theme.spacing(1),
-  borderRadius: "8px",
-  boxShadow: active ? "0px 2px 4px 2px rgba(16, 24, 40, 0.05)" : "none",
-  cursor: "pointer",
-  padding: "10px 16px",
-  position: "relative",
-  textDecoration: "none",
-  whiteSpace: "nowrap",
+  borderRadius: '8px',
+  boxShadow: active ? '0px 2px 4px 2px rgba(16, 24, 40, 0.05)' : 'none',
+  cursor: 'pointer',
+  padding: '10px 16px',
+  position: 'relative',
+  textDecoration: 'none',
+  whiteSpace: 'nowrap',
   ...(disabled && {
-    backgroundColor: "var(--NavItem-disabled-background)",
-    color: "var(--NavItem-disabled-color)",
-    cursor: "not-allowed",
+    backgroundColor: 'var(--NavItem-disabled-background)',
+    color: 'var(--NavItem-disabled-color)',
+    cursor: 'not-allowed',
   }),
   ...(active && {
     backgroundColor: theme.palette.primary.main,
@@ -56,10 +56,10 @@ interface NavItemTextProps extends TypographyProps {
 }
 
 export const NavItemText = styled(Typography, {
-  shouldForwardProp: (prop) => prop !== "active",
+  shouldForwardProp: (prop) => prop !== 'active',
 })<NavItemTextProps>(({ theme, active }) => ({
   color: active ? theme.palette.common.white : theme.palette.grey[900],
   fontWeight: 500,
-  lineHeight: "28px",
-  fontSize: active ? "16px" : "14px",
+  lineHeight: '28px',
+  fontSize: active ? '16px' : '14px',
 }));

@@ -1,4 +1,5 @@
 import { Box, Typography, Divider } from "@mui/material";
+
 import images from "~/assets/image";
 
 export default function MiddlewareExplanationPage() {

@@ -1,0 +1,32 @@
+pre-commit:
+  parallel: true
+  commands:
+    typing:
+      glob: 'src/**/*.{ts,tsx}'
+      run: npm run ts:check
+    linting:
+      glob: 'src/**/*.{ts,tsx,js,jsx}'
+      run: npm run lint --fix
+      stage_fixed: true
+    spelling:
+      glob: 'src/**/*.{js,ts,jsx,tsx,md}'
+      run: npm run cspell {staged_files}
+    formatting:
+      glob: 'src/**/*.{js,ts,jsx,tsx,md}'
+      run: npm run format {staged_files}
+    # check-deps:
+    #   run: npm run check-deps
+
+commit-msg:
+  parallel: true
+  commands:
+    lint-commit-msg:
+      run: npm run commitlint --edit
+    spell-check:
+      run: echo "$(cat {1})" | npm run cspell stdin --no-summary
+
+pre-push:
+  parallel: true
+  commands:
+    build:
+      run: npm run build

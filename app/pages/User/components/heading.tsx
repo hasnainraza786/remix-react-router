@@ -1,33 +1,32 @@
 /**
  * Branches Pages Heading
  */
-"use client";
+'use client';
 
-import React, { useCallback, useMemo } from "react";
+import React, { useCallback, useMemo } from 'react';
 
-import PageHeading, { type PageHeadingProps } from "~/components/PageHeading";
+import { useParams } from 'react-router';
 
-import { routes } from "~/router/routes";
+import messages from './messages';
 
-import { toBoolean } from "~/utils";
+import PageHeading, { type PageHeadingProps } from '~/components/PageHeading';
+import { useQueryParams } from '~/hooks/useQueryParams';
+import { useListingFilters } from '~/pages/shared/hooks/useListingFilters';
+import { routes } from '~/router/routes';
+import { toBoolean } from '~/utils';
 
-import { useQueryParams } from "~/hooks/useQueryParams";
-import { useParams } from "react-router";
-import messages from "./messages";
-import { useListingFilters } from "~/pages/shared/hooks/useListingFilters";
-
-interface HeadingProps extends Omit<PageHeadingProps, "heading"> {
+interface HeadingProps extends Omit<PageHeadingProps, 'heading'> {
   showAddButton?: boolean;
   showEditButton?: boolean;
   showIncludeInActive?: boolean;
-  headingType: "list" | "detail" | "edit" | "create";
+  headingType: 'list' | 'detail' | 'edit' | 'create';
 }
 
 export default function Heading({
   showAddButton,
   showEditButton,
   showIncludeInActive,
-  headingType = "list",
+  headingType = 'list',
 }: HeadingProps): React.JSX.Element {
   const { route } = useQueryParams();
   const { id } = useParams();
@@ -40,7 +39,7 @@ export default function Heading({
         includeInActive: !!checked,
       });
     },
-    [setFilter]
+    [setFilter],
   );
 
   const pageHeading = useMemo(() => messages[headingType], [headingType]);
@@ -49,17 +48,9 @@ export default function Heading({
     <PageHeading
       heading={pageHeading}
       isIncludeInActive={toBoolean(filters?.includeInActive)}
-      onAddPress={
-        showAddButton ? () => route({ url: routes.user.create }) : undefined
-      }
-      onEditPress={
-        showEditButton
-          ? () => route({ url: routes.user.edit(id as string) })
-          : undefined
-      }
-      onCheckedIncludeInActive={
-        showIncludeInActive ? handleIncludeInActivePress : undefined
-      }
+      onAddPress={showAddButton ? () => route({ url: routes.user.create }) : undefined}
+      onEditPress={showEditButton ? () => route({ url: routes.user.edit(id as string) }) : undefined}
+      onCheckedIncludeInActive={showIncludeInActive ? handleIncludeInActivePress : undefined}
     />
   );
 }

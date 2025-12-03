@@ -1,18 +1,20 @@
-import * as React from "react";
-import { useLocation } from "react-router";
+import * as React from 'react';
 
-import Box from "@mui/material/Box";
-import Divider from "@mui/material/Divider";
-import { Link as RouterLink } from "react-router";
+import { useLocation } from 'react-router';
+import { Link as RouterLink } from 'react-router';
 
-import { colorSchemes } from "~/theme/color-schemes";
+import Box from '@mui/material/Box';
+import Divider from '@mui/material/Divider';
 
-import { routes } from "~/router/routes";
-import { Logo } from "../../Logo";
-import { navItems } from "../config";
-import { NavList } from "../NavItems";
-import type { NavItemConfig } from "../types";
-import { MobileDrawer } from "./Styled";
+import { Logo } from '../../Logo';
+import { navItems } from '../config';
+import { NavList } from '../NavItems';
+import type { NavItemConfig } from '../types';
+
+import { MobileDrawer } from './Styled';
+
+import { routes } from '~/router/routes';
+import { colorSchemes } from '~/theme/color-schemes';
 
 export interface MobileNavProps {
   onClose?: () => void;
@@ -27,12 +29,8 @@ function MobileNav({ open, onClose }: MobileNavProps): React.JSX.Element {
 
   return (
     <MobileDrawer open={open} onClose={onClose}>
-      <Box
-        component={RouterLink}
-        to={routes.home}
-        sx={{ display: "flex", justifyContent: "center", p: "24px" }}
-      >
-        <Logo width={"250px"} />
+      <Box component={RouterLink} to={routes.home} sx={{ display: 'flex', justifyContent: 'center', p: '24px' }}>
+        <Logo width={'250px'} />
       </Box>
 
       <Divider sx={{ borderColor: palette.stroke }} />

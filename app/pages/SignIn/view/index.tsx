@@ -1,49 +1,40 @@
-import {
-  Alert,
-  Box,
-  Button,
-  Card,
-  CardContent,
-  CircularProgress,
-  Stack,
-  TextField,
-  Typography,
-} from "@mui/material";
-import React, { useState } from "react";
-import { useActionData, useNavigation, useSubmit } from "react-router-dom";
-import { routes } from "~/router/routes";
+import React, { useState } from 'react';
+
+import { useActionData, useNavigation, useSubmit } from 'react-router-dom';
+
+import { Alert, Box, Button, Card, CardContent, CircularProgress, Stack, TextField, Typography } from '@mui/material';
+
+import { routes } from '~/router/routes';
 
 export default function SignIn() {
   const actionData = useActionData() as { error?: string } | undefined;
   const navigation = useNavigation();
   const submit = useSubmit();
-  const loading = navigation.state === "submitting";
+  const loading = navigation.state === 'submitting';
 
-  const [username, setUsername] = useState("");
-  const [password, setPassword] = useState("");
+  const [username, setUsername] = useState('');
+  const [password, setPassword] = useState('');
 
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
     const formData = new FormData();
-    formData.append("username", username);
-    formData.append("password", password);
-    submit(formData, { method: "post", action: routes.auth.signIn });
+    formData.append('username', username);
+    formData.append('password', password);
+    submit(formData, { method: 'post', action: routes.auth.signIn });
   };
 
   return (
     <Box
       sx={{
-        minHeight: "100vh",
-        display: "flex",
-        justifyContent: "center",
-        alignItems: "center",
-        bgcolor: "grey.100",
+        minHeight: '100vh',
+        display: 'flex',
+        justifyContent: 'center',
+        alignItems: 'center',
+        bgcolor: 'grey.100',
         p: 2,
       }}
     >
-      <Card
-        sx={{ width: "100%", maxWidth: 400, borderRadius: 3, boxShadow: 3 }}
-      >
+      <Card sx={{ width: '100%', maxWidth: 400, borderRadius: 3, boxShadow: 3 }}>
         <CardContent>
           <Typography variant="h5" align="center" fontWeight={600} gutterBottom>
             Sign In
@@ -83,13 +74,9 @@ export default function SignIn() {
                 fullWidth
                 size="large"
                 disabled={loading}
-                sx={{ textTransform: "none", fontWeight: 600 }}
+                sx={{ textTransform: 'none', fontWeight: 600 }}
               >
-                {loading ? (
-                  <CircularProgress size={24} sx={{ color: "white" }} />
-                ) : (
-                  "Sign In"
-                )}
+                {loading ? <CircularProgress size={24} sx={{ color: 'white' }} /> : 'Sign In'}
               </Button>
             </Stack>
           </Box>

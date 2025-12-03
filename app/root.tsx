@@ -1,33 +1,27 @@
-import {
-  isRouteErrorResponse,
-  Links,
-  Meta,
-  Outlet,
-  Scripts,
-  ScrollRestoration,
-} from "react-router";
-import ThemeProvider from "~/registry/Theme";
+import { isRouteErrorResponse, Links, Meta, Outlet, Scripts, ScrollRestoration } from 'react-router';
 
-import { LocaleProvider } from "~/context/LocaleContext";
-import SnackbarContextProvider from "~/context/SnackbarContext";
-import IntlRegistry from "~/registry/Intl";
-import type { Route } from "./+types/root";
-import "./app.css";
-import { AuthContextProvider } from "./context/AuthContext";
-import { authMiddleware } from "./middleware/authMiddleware";
-import QueryProvider from "./registry/ReactQuery";
+import type { Route } from './+types/root';
+import './app.css';
+import { AuthContextProvider } from './context/AuthContext';
+import { authMiddleware } from './middleware/authMiddleware';
+import QueryProvider from './registry/ReactQuery';
+
+import { LocaleProvider } from '~/context/LocaleContext';
+import SnackbarContextProvider from '~/context/SnackbarContext';
+import IntlRegistry from '~/registry/Intl';
+import ThemeProvider from '~/registry/Theme';
 // e.g. in root.tsx or a layout file
 
 export const links: Route.LinksFunction = () => [
-  { rel: "preconnect", href: "https://fonts.googleapis.com" },
+  { rel: 'preconnect', href: 'https://fonts.googleapis.com' },
   {
-    rel: "preconnect",
-    href: "https://fonts.gstatic.com",
-    crossOrigin: "anonymous",
+    rel: 'preconnect',
+    href: 'https://fonts.gstatic.com',
+    crossOrigin: 'anonymous',
   },
   {
-    rel: "stylesheet",
-    href: "https://fonts.googleapis.com/css2?family=Inter:ital,opsz,wght@0,14..32,100..900;1,14..32,100..900&display=swap",
+    rel: 'stylesheet',
+    href: 'https://fonts.googleapis.com/css2?family=Inter:ital,opsz,wght@0,14..32,100..900;1,14..32,100..900&display=swap',
   },
 ];
 export const middleware: Route.MiddlewareFunction[] = [authMiddleware];
@@ -65,16 +59,13 @@ export default function App() {
 }
 
 export function ErrorBoundary({ error }: Route.ErrorBoundaryProps) {
-  let message = "Oops!";
-  let details = "An unexpected error occurred.";
+  let message = 'Oops!';
+  let details = 'An unexpected error occurred.';
   let stack: string | undefined;
 
   if (isRouteErrorResponse(error)) {
-    message = error.status === 404 ? "404" : "Error";
-    details =
-      error.status === 404
-        ? "The requested page could not be found."
-        : error.statusText || details;
+    message = error.status === 404 ? '404' : 'Error';
+    details = error.status === 404 ? 'The requested page could not be found.' : error.statusText || details;
   } else if (import.meta.env.DEV && error && error instanceof Error) {
     details = error.message;
     stack = error.stack;
