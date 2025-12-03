@@ -1,0 +1,61 @@
+import { useState, useEffect } from "react";
+
+import merge from "lodash/merge";
+import { RawIntlProvider, createIntl, createIntlCache } from "react-intl";
+
+import messages from "~/translations/en.json";
+import urMessages from "~/translations/ur.json";
+import { useLocale } from "~/context/LocaleContext";
+
+const cache = createIntlCache();
+
+// Available locales
+const availableLocales = {
+  en: messages,
+  ur: urMessages,
+};
+
+export default function IntlRegistry({
+  children,
+  customMessages,
+}: {
+  children: React.ReactNode;
+  customMessages?: Record<string, Record<string, string>>;
+}) {
+  const { locale } = useLocale();
+
+  const [intl, setIntl] = useState(() => {
+    const messagesForLocale =
+      availableLocales[locale as keyof typeof availableLocales] ||
+      availableLocales.en;
+    return createIntl(
+      {
+        locale,
+        messages: merge(
+          messagesForLocale,
+          (customMessages ? customMessages?.[locale] : {}) || {}
+        ),
+      },
+      cache
+    );
+  });
+
+  useEffect(() => {
+    const messagesForLocale =
+      availableLocales[locale as keyof typeof availableLocales] ||
+      availableLocales.en;
+    const newIntl = createIntl(
+      {
+        locale,
+        messages: merge(
+          messagesForLocale,
+          (customMessages ? customMessages?.[locale] : {}) || {}
+        ),
+      },
+      cache
+    );
+    setIntl(newIntl);
+  }, [locale, customMessages]);
+
+  return <RawIntlProvider value={intl}>{children}</RawIntlProvider>;
+}

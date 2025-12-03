@@ -6,9 +6,17 @@ import {
   Scripts,
   ScrollRestoration,
 } from "react-router";
+import ThemeProvider from "~/registry/Theme";
 
+import { LocaleProvider } from "~/context/LocaleContext";
+import SnackbarContextProvider from "~/context/SnackbarContext";
+import IntlRegistry from "~/registry/Intl";
 import type { Route } from "./+types/root";
 import "./app.css";
+import { AuthContextProvider } from "./context/AuthContext";
+import { authMiddleware } from "./middleware/authMiddleware";
+import QueryProvider from "./registry/ReactQuery";
+// e.g. in root.tsx or a layout file
 
 export const links: Route.LinksFunction = () => [
   { rel: "preconnect", href: "https://fonts.googleapis.com" },
@@ -22,6 +30,7 @@ export const links: Route.LinksFunction = () => [
     href: "https://fonts.googleapis.com/css2?family=Inter:ital,opsz,wght@0,14..32,100..900;1,14..32,100..900&display=swap",
   },
 ];
+export const middleware: Route.MiddlewareFunction[] = [authMiddleware];
 
 export function Layout({ children }: { children: React.ReactNode }) {
   return (
@@ -33,7 +42,17 @@ export function Layout({ children }: { children: React.ReactNode }) {
         <Links />
       </head>
       <body>
-        {children}
+        <LocaleProvider>
+          <SnackbarContextProvider>
+            <AuthContextProvider>
+              <QueryProvider>
+                <ThemeProvider>
+                  <IntlRegistry>{children}</IntlRegistry>
+                </ThemeProvider>
+              </QueryProvider>
+            </AuthContextProvider>
+          </SnackbarContextProvider>
+        </LocaleProvider>
         <ScrollRestoration />
         <Scripts />
       </body>
